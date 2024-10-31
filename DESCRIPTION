@@ -1,12 +1,25 @@
 Package: MsRadaR
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: A Tool for De-Novo Structural Elucidation of Lipids from MS/MS Spectra (EDP-CID, EAD)
+Version: 0.1.0
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Patrick", "Mueller", email = "Patrick.Mueller@unige.ch", 
+           role = c("aut", "cre"), 
+           comment = c(ORCID = "0000-0003-1597-0299"))
+Description: MsRadaR contains functions to build a de-novo structural elucidation
+    pipeline for double bond positions of lipid molecules from centroided MS/MS 
+    spectra. Elemental formula and elemental formula loss (EFL) assignment can 
+    be performed. The experimental determined EFL are compared to that of a 
+    saturated alkyl chain CH3(CH2)n to determine the delta H difference related 
+    to the appearance of double bonds. Characteristic delta H differences are 
+    normalized and can be visualized as relative intensities or intensity slopes. 
+    Intensity maxima peak picking is performed to spot putative double bond 
+    positions. Different m/z values can be used as starting points for CH3(CH2)n 
+    deltaH series. Additionally, fragments related to the fatty acid composition 
+    can be visualized and indicate whether a neutral or radical loss occurred.
+License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+LazyData: FALSE
+Imports: Rdisop, CHNOSZ, ggplot2, scales, stringr, readxl, rlist, tidyr, 
+    dplyr, ggrepel, patchwork, cardidates, pastecs
