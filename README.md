@@ -39,7 +39,7 @@ The following acylglycerols are available as examples:
 
 ## Usage
 
-The following example demonstrates two typical workflows for using the **MsRadaR** package: single file processing and batch processing.
+The following example workflow demonstrates two different ways to use the MsRadaR package: single-file processing and batch processing.
 
 ### Example Workflow
 
