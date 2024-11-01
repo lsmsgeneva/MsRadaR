@@ -1,4 +1,5 @@
-# Ciations
+# Citations
+This project uses the following R packages. Proper citations for each package are provided to acknowledge the authors.
 
 ## Rdisop
 
