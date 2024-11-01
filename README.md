@@ -123,6 +123,7 @@ Batch processing allows to utilize all the functions mentioned above to loop thr
 Either all MS/MS spectra within the working directory are processed or an excel (.xlsx) can be used to specificy spectra locations, names and additional 
 information to consider for data processing. For instance, precursor masses, double bond series after the loss of specific elemental formulas / m/z values can be specified
 within the excel file. Inputing the column name within the function will consider these losses. Setting parameters to F will prevent certain functions from beeing executed.
+The results of the batch processing can be summarized within an heatmap.
 ```r
 # Load the MsRadaR library
 library(MsRadaR)
