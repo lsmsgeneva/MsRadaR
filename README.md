@@ -8,6 +8,9 @@ to determine the delta H difference related to the appearance of double bonds. C
 or intensity slopes. Intensity maxima peak picking is performed to spot putative double bond positions. Different m/z values can be used as starting points for CH3(CH2)n deltaH series.
 Additionally, fragments related to the fatty acid composition can be visualized and indicate whether a neutral or radical loss occurred.
 
+Additional information about interpretation rules and applications can be found within the following preprint: https://chemrxiv.org/engage/chemrxiv/article-details/6655ac6e418a5379b0787191
+
+
 ## Installation
 
 To install the **MsRadaR** package, you can use the `devtools` package, which provides functions to install packages hosted on GitHub.
