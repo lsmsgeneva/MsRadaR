@@ -148,5 +148,5 @@ Batch_Summary <- Create_Summary(Data = Batch_Results, Expected_DB = "Max_DB_Col"
 
 ```
 ## License
-This project is licensed under the GPL-3 License. See the `LICENSE` file for more details.
+This project is licensed under the GPL-3 License.
 
