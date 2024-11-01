@@ -12,20 +12,34 @@ Additional information about interpretation rules and applications can be found 
 
 
 ## Installation
-
-To install the **MsRadaR** package, you can use the `devtools` package, which provides functions to install packages hosted on GitHub.
-
-Make sure you have the `devtools` package installed. If you haven't installed it yet, you can do so by running:
+To install the **MsRadaR** R package, copy the following R code and run it in your console. The `devtools` package is required and will be installed if needed.
 
    ```r
-   install.packages("devtools")
+   if (!requireNamespace("devtools", quietly = TRUE)) {install.packages("devtools")}
 
    devtools::install_github("lsmsgeneva/MsRadaR")
 ```
+
+## Example Files
+Example files of 7 acylglycerols are provided within the Example Files folder. 
+An example excel file for batch processing of these text files is also provided.
+The following acylglycerols are available as examples:
+
+| Lipid                                                       | Abbreviation |
+|-------------------------------------------------------------|--------------|
+| TG(18:2(n-6,n-9)/18:2(n-6,n-9)/18:2(n-6,n-9))               | LLL          |
+| TG(18:1(n-9)/18:1(n-9)/18:1(n-9))                           | OOO          |
+| TG(18:3(n-3,n-6,n-9)/18:3(n-3,n-6,n-9)/18:3(n-3,n-6,n-9))   | LnLnLn       |
+| TG(18:3(n-6,n-9,n-12)/18:3(n-6,n-9,n-12)/18:3(n-6,n-9))     | gLngLngLn    |
+| TG(18:1(n-9)/16:0/18:2(n-6,n-9))                            | OPL          |
+| DG(18:2(n-6,n-9)/OH/18:2(n-6,n-9))                          | 1,3LL        |
+| MG(OH/20:4(n-6,n-9,n-12,n-15)/OH)                           | 2Ar          |
+
+
+
 ## Usage
 
 The following example demonstrates two typical workflows for using the **MsRadaR** package: single file processing and batch processing.
-Example text files are provided within the directory. An example excel file for batch processing of these text files is also provided.
 
 ### Example Workflow
 
