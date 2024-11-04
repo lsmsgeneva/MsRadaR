@@ -21,7 +21,7 @@ To install the **MsRadaR** R package, copy the following R code and run it in yo
 ```
 
 ## Example Files
-Example files of 7 acylglycerols are provided within the "Example Files" folder. 
+Example files of 7 acylglycerols are provided within the [Example Files](inst/Example%20Files) folder. 
 An example excel file for batch processing of these text files is also provided.
 The folder is automaticaly installed along the R package.
 The following acylglycerols are available as examples:
@@ -222,8 +222,12 @@ Batch_Results$OPL.txt$Plot_List
 # Finish writting the PDF document
 dev.off()
 ```
+## Dependencies
+R-Packages used within this project are acknowleged and releated modifications documented within the [citations](CITATIONS.md) file.
 
+## How to Cite this Projekt
+Detailed information on how to cite this project is availabe in the [ciation](Citation.cff) file.
 
 ## License
-This project is licensed under the GPL-3 License.
+This project is licensed under the [GPL-3 License](LICENSE.md).
 
