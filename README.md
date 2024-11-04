@@ -52,87 +52,108 @@ Additional information can be inputed within given functions (e.g. precursor mas
 library(MsRadaR)
 
 #===============================================================================
-# 1. Input Parameters
+#1. Input Parameters
 #===============================================================================
 
-# Load Parameters required for processing
+#Load Parameters required for processing
 Load_Parameters()
 
 #===============================================================================
-# 2. Data Loading and Preprocessing
+#2. Data loading and preprocessing
 #===============================================================================
 
-# Load and filter data from a single file
-Data <- Load_Data(Dat.Name = "Lipid_Feature.txt", Precursor.Mass = FALSE)
+#Specify path. e.g. for example data. replace with path of your data.
+Example_Spectra_Path <- Load_Example_Path(Sample = "OPL")
+
+#Load and filter data from a single file
+Data <- Load_Data(Dat.Name = Example_Spectra_Path, Precursor.Mass = FALSE)
 
 #===============================================================================
-# 3. Perform Elemental Formula Annotation of the MS/MS Spectra
+#3. Perform elemental formula annotation of the MS/MS spectra
 #===============================================================================
 
 Elemental_Formula_df <- Annotate_Fragments(Data)
 
 #===============================================================================
-# 4. Kendricks Transformation
+#4. Kendricks Transformation
 #===============================================================================
 
-# Perform Kendrick transformation on the annotated elemental formulas data frame
+#Perform Kendrick transformation on the annotated elemental formulas data.frame
 Kendricks_Data <- Kendricks_Transformation(Kendricks_Data = Elemental_Formula_df)
 
 #===============================================================================
-# 5. Annotate Losses
+#5. Annotate Losses
 #===============================================================================
 
-# Annotate elemental formula losses based on the original input file
+#Annotate elemental formula losses based on the original input file
 Fragmentation_Data <- Annotate_Losses(Data = Data)
 
 #===============================================================================
-# 6. Find Fatty Acid Attachments
+#6. Find FA attachments
 #===============================================================================
 
-# From Elemental Formulas of FA and MG fragments
-FA_Peaks <- Find_FAs(Elemental_Formula_df, Oxygen = 1:3)
+#From Elemental Formulas of FA and MG fragments
+FA_Peaks <- Find_FAs(Elemental_Formula_df, Oxygen = 1:3,median_Factor = 4)
 FA_DF <- Extract_FAs(FA_Peaks = FA_Peaks, Precursor_Df = Precursor_DF, Data = Elemental_Formula_df)
 
-# From Elemental Formula losses leading to DG Fragments
+
+#From Elemental Formula losses leading to DG Fragments
 FA_Loss_Peaks <- Find_FA_Losses(Fragmentation_Data)
-FA_Loss_DF <- Extract_FA_Losses(Data = Fragmentation_Data, FA_Peaks = FA_Loss_Peaks, Precursor_Df = Precursor_DF)
+FA_Loss_DF <- Extract_FA_Losses(Data= Fragmentation_Data,FA_Peaks = FA_Loss_Peaks, Precursor_Df = Precursor_DF )
+#Find numbers of double bonds
+
 
 #===============================================================================
-# 7. Annotate Double Bonds
+#7. Annotate Double bonds
 #===============================================================================
 
-Double_Bond_Data <- Find_DB(Fragmentation_Data, Threshold = Thres, delta_H = 0:9)
+Double_Bond_Data <- Find_DB(Fragmentation_Data,Threeshold = Thres, delta_H = 0:9)
 
 #===============================================================================
-# 8. Find Double Bonds from Additional Starting Points
+#7. Find DB from additional starting points
 #===============================================================================
 
 Additional_DB_Series <- Find_DB2(Data = Data)
 
 #===============================================================================
-# 9. Generate Graphical Outputs
+#8. Generate Graphical Outputs
 #===============================================================================
+#Various graphical outputs can be generated for data visualization and interpretation
+#===============================================================================
+#8.1.1 Kendricks plot
+#===============================================================================
+Kendrick_Plot <- Plot_Kendricks_Plot(Kendricks_Data, toggle_alpha = 0, Rel.Thres = 1/10, Abs.Thres = Thres, plot_legend = F, point_size = 1)
 
-# 9.1. Kendrick Plot
-Kendrick_Plot <- Plot_Kendricks_Plot(Kendricks_Data, toggle_alpha = 0, Rel.Thres = 1/10, Abs.Thres = Thres, plot_legend = FALSE, point_size = 1)
-
-# 9.2. MS Plot
+#===============================================================================
+#8.1.2 MS Plot
+#===============================================================================
 MS_Spec <- Plot_MS2(Kendricks_Data, Axis_Split_Size = 1, Split_Text_Size = 8, Label_Size = 8, Line_Size = 1)
-
-# 9.3. MS Plot with Kendrick Plot
-MS_Kendrick_plot <- MS_Spec / Kendrick_Plot
-
-# 9.4. Fatty Acid Plot
+#===============================================================================
+#8.1.3 MS Plot with kendricks plot
+#===============================================================================
+MS_Kendrick_plot <- MS_Spec/Kendrick_Plot
+#===============================================================================
+#8.2 Fatty acid plot
+#===============================================================================
+#Lookg for correct function
 M_FA_Plot <- Plot_FA_Losses(FA_Loss_DF)
 
-# 9.5. Double Bond Plot
+MG_Plot <- Plot_FAs(FA_DF)
+#===============================================================================
+#8.3 DB Plot
+#===============================================================================
 Extracted_Plots <- Extract_DB_Plots(Double_Bond_Data, delta_H = "even")
+#===============================================================================
+#8.4 Alternative DB Fragmentation Series
+#===============================================================================
 
-# 9.6. Alternative Double Bond Fragmentation Series
 Additional_DB_Series_Plot <- Extract_DB2(Data = Additional_DB_Series)
 
-# 9.7. Fatty Acid Double Bond Fragments
-FA_DB_Series_Plot <- Plot_DB_from_FA(Data = Elemental_Formula_df, column = "R_L")
+#===============================================================================
+#8.5 Fatty Acid DB Frags
+#===============================================================================
+
+FA_DB_Series_PLot <- Plot_DB_from_FA(Data = Elemental_Formula_df, column = "R_L")
 
 ```
 
@@ -153,15 +174,11 @@ library(MsRadaR)
 # Load Parameters required for processing
 Load_Parameters()
 
-#===============================================================================
-# 2. Batch Processing
-#===============================================================================
+#Load Example Info for processing example files
+Load_Example_Info()
 
-Batch_Results <- Batch_Processing(Sample_Information = "Spectra_Informations.xlsx")
-
-#===============================================================================
-# 3. Create Summary
-#===============================================================================
+#Process data
+Batch_Results <- Batch_Processing(Spectra_Location=  Example_Folder, Sample_Information = Example_Info)
 
 Batch_Summary <- Create_Summary(Data = Batch_Results, Expected_DB = "Max_DB_Col", Plot.Order = "Order")
 
