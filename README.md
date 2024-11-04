@@ -21,8 +21,9 @@ To install the **MsRadaR** R package, copy the following R code and run it in yo
 ```
 
 ## Example Files
-Example files of 7 acylglycerols are provided within the Example Files folder. 
+Example files of 7 acylglycerols are provided within the "Example Files" folder. 
 An example excel file for batch processing of these text files is also provided.
+The folder is automaticaly installed along the R package.
 The following acylglycerols are available as examples:
 
 | Lipid                                                       | Abbreviation |
