@@ -1,6 +1,7 @@
 # Citations
 This project uses the following R packages. Proper citations for each package are provided to acknowledge the authors.
-In addition, licenses for each package are listed.
+In addition, licenses for each package are listed. The peakwindow function from the cardidates package has been modified
+as doucmented. 
 
 ## Rdisop
   License: GPL-2
