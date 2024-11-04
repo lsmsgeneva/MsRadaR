@@ -47,6 +47,7 @@ The following example workflow demonstrates two different ways to use the MsRada
 #### 1. Single File Processing
 Single file processing requires a centroided MS/MS spectrum (currently as text file).
 Additional information can be inputed within given functions (e.g. precursor mass), but are not required.
+Detailed information about each function can be accesed by writting ?function_y (e.g. ?Load_Parameters)
 ```r
 # Load the MsRadaR library
 library(MsRadaR)
@@ -181,6 +182,7 @@ Either all MS/MS spectra within the working directory are processed or an excel 
 information to consider for data processing. For instance, precursor masses, double bond series after the loss of specific elemental formulas / m/z values can be specified
 within the excel file. Inputing the column name within the function will consider these losses. Setting parameters to F will prevent certain functions from beeing executed.
 The results of the batch processing can be summarized within an heatmap.
+Detailed information about each function can be accesed by writting ?function_y (e.g. ?Load_Parameters)
 ```r
 # Load the MsRadaR library
 library(MsRadaR)
