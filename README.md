@@ -157,6 +157,24 @@ FA_DB_Series_PLot <- Plot_DB_from_FA(Data = Elemental_Formula_df, column = "R_L"
 
 ```
 
+#### 1.1. Visualization of Single File Processing Results
+
+Objects in R either store processed data which can be further used for additional
+processing or ggplot2 graphs which can be used for data interpretation. Further,
+these graphs can be exported using base R functions.
+```r
+# Specify the filename for the PDF document
+pdf("OPL_Summary.pdf")
+
+# Plot your graph(s)
+MS_Kendrick_plot
+Extracted_Plots
+
+# Finish writting the PDF document
+dev.off()
+```
+
+
 #### 2. Batch Processing
 Batch processing allows to utilize all the functions mentioned above to loop through a batch of MS/MS spectra (currently, single MS/MS text spectra).
 Either all MS/MS spectra within the working directory are processed or an excel (.xlsx) can be used to specificy spectra locations, names and additional 
@@ -183,6 +201,27 @@ Batch_Results <- Batch_Processing(Spectra_Location=  Example_Folder, Sample_Info
 Batch_Summary <- Create_Summary(Data = Batch_Results, Expected_DB = "Max_DB_Col", Plot.Order = "Order")
 
 ```
+
+#### 2.1. Visualization of Batch Processing Results
+
+Similar to the results from single files, batch processing results can be saved using base R functions.
+For every processed file, the Batch_Results object contains an data and plot list, which can be exported along the batch summary.
+Customization of the plots prior export is possible using ggplot2 functionalities.
+
+
+```r
+# Specify the filename for the PDF document
+pdf("OPL_Summary.pdf")
+
+# Plot your graph(s)
+Batch_Summary
+Batch_Results$OPL.txt$Plot_List
+
+# Finish writting the PDF document
+dev.off()
+```
+
+
 ## License
 This project is licensed under the GPL-3 License.
 
