@@ -165,7 +165,7 @@ processing or ggplot2 graphs which can be used for data interpretation. Further,
 these graphs can be exported using base R functions.
 ```r
 # Specify the filename for the PDF document
-pdf("OPL_Summary.pdf")
+pdf("OPL_Summary.pdf",width = 8.5)
 
 # Plot your graph(s)
 MS_Kendrick_plot
@@ -213,7 +213,7 @@ Customization of the plots prior export is possible using ggplot2 functionalitie
 
 ```r
 # Specify the filename for the PDF document
-pdf("OPL_Summary.pdf")
+pdf("OPL_Summary.pdf", width = 8.5)
 
 # Plot your graph(s)
 Batch_Summary
