@@ -1096,7 +1096,7 @@ Extract_List <- function(lst, n) {
 #' @param DBE_min Minimum double bond equivalent to consider. Default is -20.
 #' @param C0 A boolean indicating whether to keep carbon count of zero. Default
 #'   is TRUE.
-#' @param FA_Peak_vec A vector of fatty acid peaks. Default is `FA_Peaks`.
+#' @param FA_Peak_vec A vector of fatty acid peaks. Default is `FA_Loss_Peaks`.
 #'
 #' @return A list containing processed data frames and any invalid inputs. The
 #'   list may contain:
@@ -1109,7 +1109,7 @@ Extract_List <- function(lst, n) {
 #' result <- Find_DB2(Data = my_data, Losses = "C18H36O2")
 #'
 #' @export
-Find_DB2 <- function(Data = Data, Losses = "", DBE_min = -20, C0 = TRUE, FA_Peak_vec = FA_Peaks) {
+Find_DB2 <- function(Data = Data, Losses = "", DBE_min = -20, C0 = TRUE, FA_Peak_vec = FA_Loss_Peaks) {
 
   # If no losses are provided, calculate losses based on FA peaks.
   if (Losses == "") {

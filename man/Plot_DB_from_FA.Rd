@@ -10,7 +10,7 @@ Plot_DB_from_FA(
   Lower_H_Limit = -2,
   Upper_H_Limit = 20,
   Thres = 5,
-  Max_C = max(FA_Peaks),
+  Max_C = max(FA_DF$C),
   Oxygen_Range = 0:3,
   point_size = 1,
   alpha_v = 0.35

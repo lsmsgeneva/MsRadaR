@@ -9,7 +9,7 @@ Find_DB2(
   Losses = "",
   DBE_min = -20,
   C0 = TRUE,
-  FA_Peak_vec = FA_Peaks
+  FA_Peak_vec = FA_Loss_Peaks
 )
 }
 \arguments{
@@ -25,7 +25,7 @@ on FA peaks.}
 \item{C0}{A boolean indicating whether to keep carbon count of zero. Default
 is TRUE.}
 
-\item{FA_Peak_vec}{A vector of fatty acid peaks. Default is \code{FA_Peaks}.}
+\item{FA_Peak_vec}{A vector of fatty acid peaks. Default is \code{FA_Loss_Peaks}.}
 }
 \value{
 A list containing processed data frames and any invalid inputs. The

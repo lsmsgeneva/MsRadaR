@@ -87,6 +87,13 @@ Batch_Processing <- function(Spectra_Location = getwd(),
     Composition.Column = Composition.Column
   ))
 
+  if(!Spectra_Location == getwd()){
+
+    setwd(Spectra_Location)
+
+  }
+
+
   # Load spectra files based on whether sample information is provided
   if (Sample_Information == F) {
     # If no sample information is provided, list all .txt files in the specified location
@@ -97,6 +104,8 @@ Batch_Processing <- function(Spectra_Location = getwd(),
     Info_File[is.na(Info_File)] <- ""  # Replace NA values with empty strings
     Spectra_Files <- Info_File[, File.Column]  # Extract file names from specified column
 
+
+
     # Adjust any loss annotations in the Info_File
     Names_To_Adjust <- which(grepl(":", Info_File[, Loss.Column]))  # Find rows with loss annotations
     for (i in Names_To_Adjust) {
@@ -104,6 +113,9 @@ Batch_Processing <- function(Spectra_Location = getwd(),
     }
     rm(Names_To_Adjust)  # Remove temporary variable
   }
+
+  #Add folder location to spectra files if it is not within the working directory
+
 
   #=============================================================================
   # Loop Start: Process each spectrum file
@@ -180,7 +192,7 @@ Batch_Processing <- function(Spectra_Location = getwd(),
 
     if (Find_Additional_DB & Find_FA_Attachment | !(Info_File[Spec_Pos, Loss.Column] == "")) {
       # Find additional double bonds based on losses or if fatty acid attachment is found
-      Additional_DB_Series <- Find_DB2(Data = Data, Losses = if (exists("Info_File")) Info_File[Spec_Pos, Loss.Column] else "", FA_Peak_vec = FA_Peaks)
+      Additional_DB_Series <- Find_DB2(Data = Data, Losses = if (exists("Info_File")) Info_File[Spec_Pos, Loss.Column] else "", FA_Peak_vec = FA_Loss_Peaks)
 
       Alt_DB_Series <- Extract_DB2(Data = Additional_DB_Series)
     }  # Additional DB Series
