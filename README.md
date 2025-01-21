@@ -21,20 +21,21 @@ To install the **MsRadaR** R package, copy the following R code and run it in yo
 ```
 
 ## Example Files
-Example files of 7 acylglycerols are provided within the "Example Files" folder. 
-An example excel file for batch processing of these text files is also provided.
+7 example files from supercritical fluid chromatography coulped  to chlorobenzene-assisted atmospheric pressure photoionization mass spectrometry experiments with electron deficent precursor collision-induced dissociation (EDP-CID) are avaialable 
+within the [Example Files](inst/Example%20Files) folder. All measurements were recorded on a qTOF6600 from SCIEX with the PhotoSpray ion source from SCIEX. An example excel file for batch processing of these text files is also provided.
 The folder is automaticaly installed along the R package.
+
 The following acylglycerols are available as examples:
 
-| Lipid                                                       | Abbreviation |
-|-------------------------------------------------------------|--------------|
-| TG(18:2(n-6,n-9)/18:2(n-6,n-9)/18:2(n-6,n-9))               | LLL          |
-| TG(18:1(n-9)/18:1(n-9)/18:1(n-9))                           | OOO          |
-| TG(18:3(n-3,n-6,n-9)/18:3(n-3,n-6,n-9)/18:3(n-3,n-6,n-9))   | LnLnLn       |
-| TG(18:3(n-6,n-9,n-12)/18:3(n-6,n-9,n-12)/18:3(n-6,n-9))     | gLngLngLn    |
-| TG(18:1(n-9)/16:0/18:2(n-6,n-9))                            | OPL          |
-| DG(18:2(n-6,n-9)/OH/18:2(n-6,n-9))                          | 1,3LL        |
-| MG(OH/20:4(n-6,n-9,n-12,n-15)/OH)                           | 2Ar          |
+| Lipid                                                       | Abbreviation |Collision Energy|
+|-------------------------------------------------------------|--------------|--------------|
+| TG(18:2(n-6,n-9)/18:2(n-6,n-9)/18:2(n-6,n-9))               | LLL          |35 eV         |
+| TG(18:1(n-9)/18:1(n-9)/18:1(n-9))                           | OOO          |35 eV         |
+| TG(18:3(n-3,n-6,n-9)/18:3(n-3,n-6,n-9)/18:3(n-3,n-6,n-9))   | LnLnLn       |35 eV         |
+| TG(18:3(n-6,n-9,n-12)/18:3(n-6,n-9,n-12)/18:3(n-6,n-9))     | gLngLngLn    |35 eV         |
+| TG(18:1(n-9)/16:0/18:2(n-6,n-9))                            | OPL          |35 eV         |
+| DG(18:2(n-6,n-9)/OH/18:2(n-6,n-9))                          | 1,3LL        |35 eV         |
+| MG(OH/20:4(n-6,n-9,n-12,n-15)/OH)                           | 2Ar          |20 eV         |
 
 
 
@@ -165,7 +166,7 @@ processing or ggplot2 graphs which can be used for data interpretation. Further,
 these graphs can be exported using base R functions.
 ```r
 # Specify the filename for the PDF document
-pdf("OPL_Summary.pdf")
+pdf("OPL_Summary.pdf",width = 8.5)
 
 # Plot your graph(s)
 MS_Kendrick_plot
@@ -213,7 +214,7 @@ Customization of the plots prior export is possible using ggplot2 functionalitie
 
 ```r
 # Specify the filename for the PDF document
-pdf("OPL_Summary.pdf")
+pdf("OPL_Summary.pdf", width = 8.5)
 
 # Plot your graph(s)
 Batch_Summary
@@ -222,8 +223,12 @@ Batch_Results$OPL.txt$Plot_List
 # Finish writting the PDF document
 dev.off()
 ```
+## Dependencies
+R-Packages used within this project are acknowleged and releated modifications documented within the [citations](CITATIONS.md) file.
 
+## How to Cite this Projekt
+Detailed information on how to cite this project is availabe in the [ciation](Citation.cff) file.
 
 ## License
-This project is licensed under the GPL-3 License.
+This project is licensed under the [GPL-3 License](LICENSE.md).
 
