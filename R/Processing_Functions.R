@@ -1055,12 +1055,29 @@ Find_DB <- function(Data, delta_H = c(0, 2, 4, 6), Threeshold = 10,
       }
 
 
-      #Display the plots in percentage, if Scaling is True.
 
+
+
+      #Display the plots in percentage, if Scaling is True.
       if(Scaling){
 
-        A <- A+ scale_y_continuous(labels = scales::percent)
-        B <- B+ scale_y_continuous(labels = scales::label_percent(scale = 1))
+        #Calculate breaks for y-axis
+        Breaks_Int <- pretty(Output$Relative_Intensity, n=5)
+        Breaks_Slope <- pretty(Output$Slope_Scaled, n=5)
+
+        A <- A+ scale_y_continuous(labels = scales::percent, breaks = Breaks_Slope)
+        B <- B+ scale_y_continuous(labels = scales::label_percent(scale = 1), breaks = Breaks_Int)
+
+      }else{
+
+
+        #Calculate breaks for y-axis
+        Breaks_Int <- pretty(Output$Height, n=5)
+        Breaks_Slope <- pretty(Output$Slope, n=5)
+
+        A <- A+ scale_y_continuous(breaks = Breaks_Slope)
+        B <- B+ scale_y_continuous(breaks = Breaks_Int)
+
 
       }
 
