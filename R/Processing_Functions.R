@@ -492,7 +492,7 @@ Annotate_Losses <- function(Data,
     # Calculate the slope if there are multiple entries
     if (nrow(Data_Proces) > 1) {
       Data_Proces$Slope[2:nrow(Data_Proces)] <- diff(Data_Proces$Height)
-      Data_Proces$Slope_Scaled <- rescale_max(Data_Proces$Slope)
+      Data_Proces$Slope_Scaled <- Data_Proces$Slope/max(Data_Proces$Height) # new scaling for slope
     }
 
     # Scale intensities of a specified elemental formula loss series
@@ -934,6 +934,11 @@ Extract_FAs <- function(Data, FA_Peaks, Fa_Number = (Precursor_DF$O - 3), Precur
 #'   Default is 0.1.
 #' @param text_size A numeric value for text size in plots. Default is 10.
 #'
+#' @param Scaling A logical value indicating whether the data should be normalized
+#'   for the plots. If TRUE, the data will be scaled by dividing by the maximum
+#'   value for height plots. For slope plots, the slope is divided by the maximal intensity.
+#'   Default is TRUE
+#'
 #' @return A list containing:
 #'   - `Peaks_Height_Based`: Data related to height peaks.
 #'   - `Peaks_Slope_Based`: Data related to slope peaks.
@@ -946,8 +951,8 @@ Extract_FAs <- function(Data, FA_Peaks, Fa_Number = (Precursor_DF$O - 3), Precur
 #'
 #' @export
 Find_DB <- function(Data, delta_H = c(0, 2, 4, 6), Threeshold = 10,
-                    Oxygen = 0, mincut = 0.382, xstart = 0,
-                    minpeak = 0.1, text_size = 10) {
+                         Oxygen = 0, mincut = 0.382, xstart = 0,
+                         minpeak = 0.1, text_size = 10, Scaling=T) {
 
   # Filter data to only include entries with positive carbon counts
   Data <- Data[Data$C > 0, ]
@@ -983,8 +988,17 @@ Find_DB <- function(Data, delta_H = c(0, 2, 4, 6), Threeshold = 10,
       peaks_Height <- peakwindow_adapt(Output$C, Output$Height, mincut = mincut, xstart = xstart)
       peaks_Slope <- peakwindow_adapt(Output$C, Output$Slope, mincut = mincut, xstart = xstart)
 
-      # Create Slope Plot
-      A <- ggplot(Output, aes(x = as.numeric(C), y = Slope)) +
+      # Create Slope Plot. Scaling allows whether to choose a normalized or absolute slope for plotting.
+      if(Scaling){
+
+        Max.Height <- round(max(Output$Height),1)
+        Max.Slope <- round(max(Output$Slope),1)
+        Maximum_Slope <- paste("Max Height:", Max.Height, "Max Slope:",Max.Slope)
+        Maximum_Intensity <- paste("% of:",Max.Height)
+
+
+      }
+      A <- ggplot(Output, aes(x = as.numeric(C), y = if (Scaling) Slope_Scaled else Slope)) +
         geom_hline(yintercept = 0, linetype = "dashed", colour = "darkgrey", size = 1) +
         geom_point(size = 3) +
         theme(legend.position = "none",
@@ -998,8 +1012,10 @@ Find_DB <- function(Data, delta_H = c(0, 2, 4, 6), Threeshold = 10,
               panel.grid.major.y = element_blank(),
               strip.background = element_rect(fill = "grey90", colour = "black")) +
         xlab("Carbon Loss") +
-        ggtitle(Parsed_Slope) +
-        scale_x_continuous(limits = c(1, 20), breaks = seq(1, max(Output$C), by = 1))
+        ggtitle(label= Parsed_Slope,
+                subtitle = if (Scaling) Maximum_Slope else NULL) +
+        scale_x_continuous(limits = c(1, 20), breaks = seq(1, max(Output$C), by = 1))+
+        ylab(ifelse(Scaling, "Normalized Slope","Slope"))
 
       # Add peak rectangles if peaks were detected
       if (nrow(peaks_Slope$peaks) > 0) {
@@ -1010,8 +1026,9 @@ Find_DB <- function(Data, delta_H = c(0, 2, 4, 6), Threeshold = 10,
           scale_fill_brewer(palette = "Set1")
       }
 
-      # Create Height Plot
-      B <- ggplot(Output, aes(x = as.numeric(C), y = Height)) +
+      # Create Height Plot Scaling allows whether to choose a normalized or absolute intensity for plotting.
+
+      B <- ggplot(Output, aes(x = as.numeric(C), y = if (Scaling) Relative_Intensity else Height)) +
         geom_point(size = 3) +
         theme(legend.position = "none",
               text = element_text(size = text_size),
@@ -1024,9 +1041,10 @@ Find_DB <- function(Data, delta_H = c(0, 2, 4, 6), Threeshold = 10,
               panel.grid.major.y = element_blank(),
               strip.background = element_rect(fill = "grey90", colour = "black")) +
         xlab("Carbon Loss") +
-        ggtitle(Parsed_Height) +
-        scale_x_continuous(limits = c(1, 20), breaks = seq(1, max(Output$C), by = 1))
-
+        ggtitle(Parsed_Height,
+                subtitle = if (Scaling) Maximum_Intensity else NULL)+
+        scale_x_continuous(limits = c(1, 20), breaks = seq(1, max(Output$C), by = 1))+
+        ylab(ifelse(Scaling, "Rel. Intensity","Height"))
       # Add peak rectangles for height if detected
       if (nrow(peaks_Height$peaks) > 0) {
         B <- B + geom_rect(data = peaks_Height$peaks, inherit.aes = FALSE,
@@ -1035,6 +1053,19 @@ Find_DB <- function(Data, delta_H = c(0, 2, 4, 6), Threeshold = 10,
                            alpha = 0.4, colour = "black") +
           scale_fill_brewer(palette = "Set1")
       }
+
+
+      #Display the plots in percentage, if Scaling is True.
+
+      if(Scaling){
+
+        A <- A+ scale_y_continuous(labels = scales::percent)
+        B <- B+ scale_y_continuous(labels = scales::label_percent(scale = 1))
+
+      }
+
+
+
 
       # Return the height peaks, slope peaks, and combined plots
       Output <- list(peaks_Height, peaks_Slope, B | A)

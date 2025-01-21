@@ -12,7 +12,8 @@ Find_DB(
   mincut = 0.382,
   xstart = 0,
   minpeak = 0.1,
-  text_size = 10
+  text_size = 10,
+  Scaling = T
 )
 }
 \arguments{
@@ -39,6 +40,11 @@ detection. Default is 0.}
 Default is 0.1.}
 
 \item{text_size}{A numeric value for text size in plots. Default is 10.}
+
+\item{Scaling}{A logical value indicating whether the data should be normalized
+for the plots. If TRUE, the data will be scaled by dividing by the maximum
+value for height plots. For slope plots, the slope is divided by the maximal intensity.
+Default is TRUE}
 }
 \value{
 A list containing:
