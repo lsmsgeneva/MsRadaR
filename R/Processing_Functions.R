@@ -991,11 +991,12 @@ Find_DB <- function(Data, delta_H = c(0, 2, 4, 6), Threeshold = 10,
       # Create Slope Plot. Scaling allows whether to choose a normalized or absolute slope for plotting.
       if(Scaling){
 
-        Max.Height <- max(Output$Height)*100/Output$Relative_Intensity[which.max(Output$Height)]
+        Max.Height_Total <- round(max(Output$Height)*100/Output$Relative_Intensity[which.max(Output$Height)],1)
+        Max.Height <- round(max(Output$Height),1)
         Max.Slope <- round(max(Output$Slope),1)
         Maximum_Slope <- paste("Max Height:", Max.Height, "Max Slope:",Max.Slope)
         Maximum_Intensity <- paste("% of:",Max.Height)
-
+        Maximum_Tot_Intensity <- paste("% of:",Max.Height_Total)
 
       }
       A <- ggplot(Output, aes(x = as.numeric(C), y = if (Scaling) Slope_Scaled else Slope)) +
@@ -1042,7 +1043,7 @@ Find_DB <- function(Data, delta_H = c(0, 2, 4, 6), Threeshold = 10,
               strip.background = element_rect(fill = "grey90", colour = "black")) +
         xlab("Carbon Loss") +
         ggtitle(Parsed_Height,
-                subtitle = if (Scaling) Maximum_Intensity else NULL)+
+                subtitle = if (Scaling) Maximum_Tot_Intensity else NULL)+
         scale_x_continuous(limits = c(1, 20), breaks = seq(1, max(Output$C), by = 1))+
         ylab(ifelse(Scaling, "Rel. Intensity","Height"))
       # Add peak rectangles for height if detected
