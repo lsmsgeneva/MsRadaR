@@ -234,7 +234,9 @@ Batch_Processing <- function(Spectra_Location = getwd(),
   if (exists("Info_File")) {
     Output <- append(list(Info_File = Info_File), Output)
   }
+  if(exists("backupwd")){
   setwd(backupwd)
+  }
   # Return the final output containing all results and settings
   Output
 }  # End of function
