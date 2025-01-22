@@ -991,7 +991,7 @@ Find_DB <- function(Data, delta_H = c(0, 2, 4, 6), Threeshold = 10,
       # Create Slope Plot. Scaling allows whether to choose a normalized or absolute slope for plotting.
       if(Scaling){
 
-        Max.Height <- round(max(Output$Height),1)
+        Max.Height <- max(Output$Height)*100/Output$Relative_Intensity[which.max(Output$Height)]
         Max.Slope <- round(max(Output$Slope),1)
         Maximum_Slope <- paste("Max Height:", Max.Height, "Max Slope:",Max.Slope)
         Maximum_Intensity <- paste("% of:",Max.Height)
